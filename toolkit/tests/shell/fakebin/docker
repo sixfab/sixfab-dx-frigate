@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# Fake docker for tests. FAKE_CONFIG_DIR is returned as the /config mount.
+case "$1" in
+  inspect)
+    [ "${FAKE_NO_CONTAINER:-0}" = "1" ] && exit 1
+    if [ "${2:-}" = "-f" ]; then echo "${FAKE_CONFIG_DIR:?}"; fi
+    exit 0 ;;
+  restart|exec|ps|run|pull|start|rm) echo "docker $*" >> "${FAKE_LOG:-/dev/null}"; exit 0 ;;
+esac
+exit 0

@@ -1,0 +1,37 @@
+# Squirrel Sprinkler - merged into your Frigate config by install.sh.
+# Model: squirrel-detector-model.dxnn, a single-class (Squirrel) detector, PPU type 1.
+# Scene outdoor is just a free model slot. install.sh clones the single camera below
+# once per camera you enter.
+
+models:
+  - scene: outdoor
+    model_type: yolo-generic
+    width: 640
+    height: 640
+    path: /config/model_cache/squirrel-detector-model.dxnn
+    labelmap_path: /config/model_cache/squirrel-only-labelmap.txt
+    devices:
+      - deepx:PCIe:0
+
+cameras:
+  garden:
+    ffmpeg:
+      inputs:
+        - path: rtsp://CHANGE-ME/stream
+          roles:
+            - detect
+            - record
+    detect:
+      enabled: true
+      width: 1280
+      height: 720
+      scene: outdoor
+    objects:
+      track:
+        - Squirrel
+      filters:
+        Squirrel:
+          min_score: 0.35
+          threshold: 0.5
+    face_recognition:
+      enabled: false

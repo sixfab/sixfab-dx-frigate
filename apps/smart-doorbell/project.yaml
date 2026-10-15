@@ -1,0 +1,7 @@
+name: smart-doorbell
+title: Smart Doorbell
+tagline: Person detection plus Frigate face recognition on the DEEPX NPU
+runtime: frigate
+extra_hardware: false
+model_license: AGPL-3.0
+release_prefix: smart-doorbell

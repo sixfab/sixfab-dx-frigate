@@ -1,0 +1,7 @@
+name: porch-pirate
+title: Porch Pirate
+tagline: Package theft alerts with Frigate on the DEEPX NPU
+runtime: frigate
+extra_hardware: false
+model_license: AGPL-3.0
+release_prefix: porch-pirate

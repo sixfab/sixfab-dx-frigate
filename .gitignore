@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# model binaries ship as GitHub Release assets, never committed (see CONTRIBUTING.md)
+*.dxnn

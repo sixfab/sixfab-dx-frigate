@@ -1,0 +1,53 @@
+# Smart Doorbell - merged into your Frigate config by install.sh.
+# Person detection on the NPU (yolov8-n_640x640_ppu.dxnn, scene all) plus Frigate's
+# face recognition (model_size large, on the CPU). install.sh clones the single
+# camera below once per camera you enter.
+
+face_recognition:
+  enabled: true
+  model_size: large
+  device: CPU
+
+models:
+  - scene: all
+    devices:
+      - deepx:PCIe:0
+    path: /config/model_cache/yolov8-n_640x640_ppu.dxnn
+    labelmap_path: /config/model_cache/coco80-labelmap.txt
+    width: 640
+    height: 640
+    input_tensor: nhwc
+    input_pixel_format: rgb
+    input_dtype: int
+    model_type: yolo-generic
+
+cameras:
+  frontdoor:
+    ffmpeg:
+      inputs:
+        - path: rtsp://CHANGE-ME/stream
+          roles:
+            - detect
+            - record
+    detect:
+      enabled: true
+      width: 1280
+      height: 720
+      scene: all
+    objects:
+      track:
+        - person
+      filters:
+        person:
+          min_score: 0.5
+          threshold: 0.6
+    motion:
+      threshold: 15
+      contour_area: 8
+    face_recognition:
+      enabled: true
+    zones:
+      frontdoor_zone:
+        coordinates: 0.1,0.9,0.9,0.9,0.9,0.1,0.1,0.1
+        objects:
+          - person

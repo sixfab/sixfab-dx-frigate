@@ -1,0 +1,38 @@
+# Boss Detector - merged into your Frigate config by install.sh.
+# Model: yolov8n-ppu-coco80.dxnn, pretrained COCO-80 (person = class 0), PPU-enabled.
+# Scene indoor_thermal is just a free model slot; no thermal camera is needed.
+# install.sh clones the single camera below once per camera you enter.
+
+models:
+  - scene: indoor_thermal
+    model_type: yolo-generic
+    width: 640
+    height: 640
+    path: /config/model_cache/yolov8n-ppu-coco80.dxnn
+    labelmap_path: /config/model_cache/coco80-labelmap.txt
+    devices:
+      - deepx:PCIe:0
+
+cameras:
+  patron:
+    ffmpeg:
+      inputs:
+        - path: rtsp://CHANGE-ME/stream
+          roles:
+            - detect
+    detect:
+      enabled: true
+      width: 1280
+      height: 720
+      scene: indoor_thermal
+    objects:
+      track:
+        - person
+      filters:
+        person:
+          min_score: 0.6
+          threshold: 0.7
+    face_recognition:
+      enabled: false
+    record:
+      enabled: false
