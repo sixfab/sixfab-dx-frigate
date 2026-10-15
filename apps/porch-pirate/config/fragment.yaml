@@ -1,0 +1,52 @@
+# Porch Pirate - merged into your Frigate config by install.sh.
+# Model: people-and-cardboxes.dxnn, 5 classes: 0=package 1=person 2=car 3=truck 4=motorcycle.
+# Scene indoor is just a free model slot. install.sh clones the single camera below
+# once per camera you enter; every camera gets its own frontdoor_zone.
+
+models:
+  - scene: indoor
+    model_type: yolo-generic
+    width: 640
+    height: 640
+    path: /config/model_cache/people-and-cardboxes.dxnn
+    labelmap_path: /config/model_cache/people-and-cardboxes-labelmap.txt
+    devices:
+      - deepx:PCIe:0
+
+cameras:
+  porchpirate:
+    ffmpeg:
+      inputs:
+        - path: rtsp://CHANGE-ME/stream
+          roles:
+            - detect
+            - record
+    detect:
+      enabled: true
+      width: 1280
+      height: 720
+      scene: indoor
+    objects:
+      track:
+        - person
+        - package
+      filters:
+        person:
+          min_score: 0.4
+          threshold: 0.5
+        package:
+          min_score: 0.4
+          threshold: 0.5
+    face_recognition:
+      enabled: false
+    motion:
+      threshold: 15
+      contour_area: 8
+    zones:
+      frontdoor_zone:
+        # Generic inset rectangle. Redraw it in the Frigate UI (camera > Zones)
+        # to follow your own porch.
+        coordinates: 0.05,0.95,0.95,0.95,0.95,0.05,0.05,0.05
+        objects:
+          - person
+          - package

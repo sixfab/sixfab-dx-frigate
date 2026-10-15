@@ -1,0 +1,3 @@
+# TAG: smart-doorbell-v1.0.0
+# <asset>  <path in repo>  <sha256>  [optional]
+yolov8-n_640x640_ppu.dxnn  model/yolov8-n_640x640_ppu.dxnn  874e5a8d5eb10dd207ca637e0f14f251871691e1c1a4002e86086bab9de8ee60

@@ -1,0 +1,3 @@
+# TAG: porch-pirate-v1.0.0
+# <asset>  <path in repo>  <sha256>  [optional]
+people-and-cardboxes.dxnn  model/people-and-cardboxes/people-and-cardboxes.dxnn  6087525b9f8470a1a464bd205ddcae87ea918aacf020d59c1285c870dafe2ff1

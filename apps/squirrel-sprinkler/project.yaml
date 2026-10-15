@@ -1,0 +1,7 @@
+name: squirrel-sprinkler
+title: Squirrel Sprinkler
+tagline: A squirrel detector that triggers an MQTT event, ready for a sprinkler valve
+runtime: frigate
+extra_hardware: true
+model_license: AGPL-3.0
+release_prefix: squirrel-sprinkler

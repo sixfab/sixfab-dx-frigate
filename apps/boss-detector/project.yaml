@@ -1,0 +1,7 @@
+name: boss-detector
+title: Boss Detector
+tagline: Person detection with Frigate on the DEEPX NPU
+runtime: frigate
+extra_hardware: false
+model_license: AGPL-3.0
+release_prefix: boss-detector

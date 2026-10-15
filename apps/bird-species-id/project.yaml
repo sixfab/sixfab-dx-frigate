@@ -1,0 +1,7 @@
+name: bird-species-id
+title: Bird Species ID
+tagline: A bird feeder camera that names the species
+runtime: frigate
+extra_hardware: false
+model_license: AGPL-3.0
+release_prefix: bird-species-id

@@ -1,0 +1,3 @@
+# TAG: squirrel-sprinkler-v1.0.0
+# <asset>  <path in repo>  <sha256>  [optional]
+squirrel-detector-model.dxnn  model/squirrel-detector-model.dxnn  5f285b3c47d9457c691b1985c47448b887d71acab8ca40a19688bb006b0eb9ef

@@ -1,0 +1,47 @@
+# Bird Species ID - merged into your Frigate config by install.sh.
+# One YOLO model trained on NABirds (555 species): each detection already carries the
+# species name, so there is no second classifier. Scene outdoor_thermal is just a free
+# model slot. install.sh replaces objects.track with every species of the labelmap.
+
+models:
+  - scene: outdoor_thermal
+    devices:
+      - deepx:PCIe:0
+    path: /config/model_cache/nabirds-new-model.dxnn
+    labelmap_path: /config/model_cache/nabirds-labelmap.txt
+    width: 640
+    height: 640
+    input_tensor: nhwc
+    input_pixel_format: rgb
+    input_dtype: int
+    model_type: yolo-generic
+
+cameras:
+  birdfeeder:
+    ffmpeg:
+      inputs:
+        - path: rtsp://CHANGE-ME/stream
+          roles:
+            - detect
+            - record
+    detect:
+      enabled: true
+      width: 1280
+      height: 720
+      fps: 3
+      scene: outdoor_thermal
+    objects:
+      track:
+        - Yellow Warbler
+        - Red-bellied Woodpecker
+      filters:
+        Yellow Warbler:
+          min_score: 0.3
+          threshold: 0.4
+        Red-bellied Woodpecker:
+          min_score: 0.3
+          threshold: 0.4
+    face_recognition:
+      enabled: false
+    record:
+      enabled: false
